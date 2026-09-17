@@ -1,0 +1,20 @@
+[
+  {
+    "name": "createTask",
+    "method": "POST",
+    "path": "/createTask",
+    "description": "Create a captcha-solving task"
+  },
+  {
+    "name": "getTaskResult",
+    "method": "POST",
+    "path": "/getTaskResult",
+    "description": "Poll for task result"
+  },
+  {
+    "name": "getBalance",
+    "method": "POST",
+    "path": "/getBalance",
+    "description": "Check account balance"
+  }
+]
