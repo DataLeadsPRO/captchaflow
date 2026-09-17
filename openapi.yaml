@@ -1,0 +1,387 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "CaptchaFlow - Captcha Solver API",
+    "version": "1.0.0",
+    "description": "Universal captcha solving with the industry-standard createTask / getTaskResult protocol, 19 task types."
+  },
+  "servers": [
+    {
+      "url": "https://captcha.dataleads.pro/v1"
+    }
+  ],
+  "paths": {
+    "/createTask": {
+      "post": {
+        "tags": [
+          "Core"
+        ],
+        "summary": "Create a captcha-solving task",
+        "description": "Submit a captcha-solving task asynchronously. Returns a `taskId` that you use to poll for results via `getTaskResult`.\n\n### Task Types (19)\n\n| Category | Task Types |\n|----------|-----------|\n| Image text | ImageToTextTask, ImageToTextTaskMuggle, ImageToTextTaskM1 |\n| reCAPTCHA v2 | RecaptchaV2TaskProxyless, RecaptchaV2EnterpriseTaskProxyless, NoCaptchaTaskProxyless |\n| reCAPTCHA v3 | RecaptchaV3TaskProxyless, RecaptchaV3TaskProxylessM1, RecaptchaV3TaskProxylessM1S7, RecaptchaV3TaskProxylessM1S9, RecaptchaV3EnterpriseTask, RecaptchaV3EnterpriseTaskM1 |\n| hCaptcha | HCaptchaTaskProxyless |\n| Turnstile | TurnstileTaskProxyless, TurnstileTaskProxylessM1 |\n| Classification | HCaptchaClassification, ReCaptchaV2Classification, FunCaptchaClassification, AwsClassification |",
+        "operationId": "createTask",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTaskRequest"
+              },
+              "examples": {
+                "ImageToTextTask": {
+                  "summary": "Image text captcha",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY",
+                    "task": {
+                      "type": "ImageToTextTask",
+                      "body": "<base64_encoded_image>"
+                    }
+                  }
+                },
+                "ImageToTextTaskMuggle": {
+                  "summary": "Muggle-style image captcha",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY",
+                    "task": {
+                      "type": "ImageToTextTaskMuggle",
+                      "body": "<base64_encoded_image>"
+                    }
+                  }
+                },
+                "ImageToTextTaskM1": {
+                  "summary": "M1 model image captcha",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY",
+                    "task": {
+                      "type": "ImageToTextTaskM1",
+                      "body": "<base64_encoded_image>"
+                    }
+                  }
+                },
+                "RecaptchaV2TaskProxyless": {
+                  "summary": "reCAPTCHA v2",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY",
+                    "task": {
+                      "type": "RecaptchaV2TaskProxyless",
+                      "websiteURL": "https://example.com",
+                      "websiteKey": "6Le-wvkSVVABBPB0JGLdnLBwZdMwQXa5JbjJWkA"
+                    }
+                  }
+                },
+                "RecaptchaV2EnterpriseTaskProxyless": {
+                  "summary": "reCAPTCHA v2 Enterprise",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY",
+                    "task": {
+                      "type": "RecaptchaV2EnterpriseTaskProxyless",
+                      "websiteURL": "https://example.com",
+                      "websiteKey": "6Le-wvkSVVABBPB0JGLdnLBwZdMwQXa5JbjJWkA"
+                    }
+                  }
+                },
+                "NoCaptchaTaskProxyless": {
+                  "summary": "Legacy reCAPTCHA v2 (NoCaptcha)",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY",
+                    "task": {
+                      "type": "NoCaptchaTaskProxyless",
+                      "websiteURL": "https://example.com",
+                      "websiteKey": "6Le-wvkSVVABBPB0JGLdnLBwZdMwQXa5JbjJWkA"
+                    }
+                  }
+                },
+                "RecaptchaV3TaskProxyless": {
+                  "summary": "reCAPTCHA v3",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY",
+                    "task": {
+                      "type": "RecaptchaV3TaskProxyless",
+                      "websiteURL": "https://example.com",
+                      "websiteKey": "6LcR_ESaAAAAAID9pXbA2qfB7J6pKfRc7wWkA",
+                      "pageAction": "verify",
+                      "minScore": 0.7
+                    }
+                  }
+                },
+                "RecaptchaV3TaskProxylessM1": {
+                  "summary": "reCAPTCHA v3 (M1 model)",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY",
+                    "task": {
+                      "type": "RecaptchaV3TaskProxylessM1",
+                      "websiteURL": "https://example.com",
+                      "websiteKey": "6LcR_ESaAAAAAID9pXbA2qfB7J6pKfRc7wWkA",
+                      "pageAction": "verify",
+                      "minScore": 0.7
+                    }
+                  }
+                },
+                "RecaptchaV3TaskProxylessM1S7": {
+                  "summary": "reCAPTCHA v3 M1 (score 0.7 preset)",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY",
+                    "task": {
+                      "type": "RecaptchaV3TaskProxylessM1S7",
+                      "websiteURL": "https://example.com",
+                      "websiteKey": "6LcR_ESaAAAAAID9pXbA2qfB7J6pKfRc7wWkA",
+                      "pageAction": "verify"
+                    }
+                  }
+                },
+                "RecaptchaV3TaskProxylessM1S9": {
+                  "summary": "reCAPTCHA v3 M1 (score 0.9 preset)",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY",
+                    "task": {
+                      "type": "RecaptchaV3TaskProxylessM1S9",
+                      "websiteURL": "https://example.com",
+                      "websiteKey": "6LcR_ESaAAAAAID9pXbA2qfB7J6pKfRc7wWkA",
+                      "pageAction": "verify"
+                    }
+                  }
+                },
+                "RecaptchaV3EnterpriseTask": {
+                  "summary": "reCAPTCHA v3 Enterprise",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY",
+                    "task": {
+                      "type": "RecaptchaV3EnterpriseTask",
+                      "websiteURL": "https://example.com",
+                      "websiteKey": "6LcR_ESaAAAAAID9pXbA2qfB7J6pKfRc7wWkA",
+                      "pageAction": "login",
+                      "minScore": 0.8
+                    }
+                  }
+                },
+                "RecaptchaV3EnterpriseTaskM1": {
+                  "summary": "reCAPTCHA v3 Enterprise (M1 model)",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY",
+                    "task": {
+                      "type": "RecaptchaV3EnterpriseTaskM1",
+                      "websiteURL": "https://example.com",
+                      "websiteKey": "6LcR_ESaAAAAAID9pXbA2qfB7J6pKfRc7wWkA",
+                      "pageAction": "login",
+                      "minScore": 0.8
+                    }
+                  }
+                },
+                "HCaptchaTaskProxyless": {
+                  "summary": "hCaptcha",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY",
+                    "task": {
+                      "type": "HCaptchaTaskProxyless",
+                      "websiteURL": "https://example.com",
+                      "websiteKey": "a5f74b19-9e45-40e0-b45d-47ff91b7a6b2"
+                    }
+                  }
+                },
+                "TurnstileTaskProxyless": {
+                  "summary": "Cloudflare Turnstile",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY",
+                    "task": {
+                      "type": "TurnstileTaskProxyless",
+                      "websiteURL": "https://example.com",
+                      "websiteKey": "0x4AAAAAAAAjq_YWYLto0kF"
+                    }
+                  }
+                },
+                "TurnstileTaskProxylessM1": {
+                  "summary": "Cloudflare Turnstile (M1 model)",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY",
+                    "task": {
+                      "type": "TurnstileTaskProxylessM1",
+                      "websiteURL": "https://example.com",
+                      "websiteKey": "0x4AAAAAAAAjq_YWYLto0kF"
+                    }
+                  }
+                },
+                "HCaptchaClassification": {
+                  "summary": "hCaptcha image classification",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY",
+                    "task": {
+                      "type": "HCaptchaClassification",
+                      "queries": [
+                        "<BASE64_IMAGE_1>",
+                        "<BASE64_IMAGE_2>"
+                      ],
+                      "question": "Please click each image containing a dog"
+                    }
+                  }
+                },
+                "ReCaptchaV2Classification": {
+                  "summary": "reCAPTCHA v2 image classification",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY",
+                    "task": {
+                      "type": "ReCaptchaV2Classification",
+                      "image": "<base64_encoded_image>",
+                      "question": "fire hydrant"
+                    }
+                  }
+                },
+                "FunCaptchaClassification": {
+                  "summary": "FunCaptcha image classification",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY",
+                    "task": {
+                      "type": "FunCaptchaClassification",
+                      "image": "<base64_encoded_image>",
+                      "question": "Please rotate the image"
+                    }
+                  }
+                },
+                "AwsClassification": {
+                  "summary": "AWS WAF captcha classification",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY",
+                    "task": {
+                      "type": "AwsClassification",
+                      "image": "<base64_encoded_image>",
+                      "question": "Please select all images with a truck"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Task created successfully or error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateTaskResponse"
+                },
+                "examples": {
+                  "Success": {
+                    "$ref": "#/components/examples/TaskCreated"
+                  },
+                  "Error": {
+                    "summary": "Invalid client key",
+                    "value": {
+                      "errorId": 1,
+                      "errorCode": "ERROR_KEY_DOES_NOT_EXIST",
+                      "errorDescription": "Invalid client key"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getTaskResult": {
+      "post": {
+        "tags": [
+          "Core"
+        ],
+        "summary": "Poll for task result",
+        "description": "Poll for the result of a task created via `createTask`. The response `status` will be `processing`, `ready`, or `failed`.\n\n**Recommended polling interval**: 5 seconds\n**Recommended max wait**: 180 seconds\n\n### Solution fields by task type:\n- reCAPTCHA v2/v3, hCaptcha \u2192 `solution.gRecaptchaResponse` (token string)\n- Turnstile \u2192 `solution.token` (token string)\n- ImageToText \u2192 `solution.text` (JSON string with captcha_type, clicks/coordinates)\n- Classification \u2192 `solution.objects` (list of indices) or `solution.answer` (bool/list)",
+        "operationId": "getTaskResult",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetTaskResultRequest"
+              },
+              "examples": {
+                "PollTask": {
+                  "summary": "Poll for task result",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY",
+                    "taskId": "550e8400-e29b-41d4-a716-446655440000"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Task result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTaskResultResponse"
+                },
+                "examples": {
+                  "Processing": {
+                    "$ref": "#/components/examples/TaskProcessing"
+                  },
+                  "ReadyToken": {
+                    "$ref": "#/components/examples/TaskReadyToken"
+                  },
+                  "ReadyTurnstile": {
+                    "$ref": "#/components/examples/TaskReadyTurnstileToken"
+                  },
+                  "ReadyText": {
+                    "$ref": "#/components/examples/TaskReadyText"
+                  },
+                  "ReadyClassification": {
+                    "$ref": "#/components/examples/TaskReadyClassification"
+                  },
+                  "Failed": {
+                    "$ref": "#/components/examples/TaskFailed"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getBalance": {
+      "post": {
+        "tags": [
+          "Core"
+        ],
+        "summary": "Check account balance",
+        "description": "Returns the current account balance. For this service, the balance is 1240.0.",
+        "operationId": "getBalance",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientKey"
+              },
+              "examples": {
+                "CheckBalance": {
+                  "summary": "Check balance",
+                  "value": {
+                    "clientKey": "YOUR_CLIENT_KEY"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Balance response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBalanceResponse"
+                },
+                "examples": {
+                  "Success": {
+                    "$ref": "#/components/examples/BalanceResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
