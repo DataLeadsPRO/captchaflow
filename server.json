@@ -1,5 +1,5 @@
 {
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.json",
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.DataLeadsPRO/captchaflow",
   "description": "Universal captcha solving with the industry-standard createTask / getTaskResult protocol, 19 task types.",
   "version": "1.0.0",
